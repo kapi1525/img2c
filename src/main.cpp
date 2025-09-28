@@ -8,7 +8,7 @@
 
 int main(int argc, const char *argv[]) {
     if (argc != 3) {
-        std::fprintf(stderr, "Usage: img2c <path> <variable prefix>\n");
+        std::fprintf(stderr, "Usage: img2c <path> <variable prefix> > <output>\n");
         return -1;
     }
     std::filesystem::path path(argv[1]);
@@ -34,11 +34,11 @@ int main(int argc, const char *argv[]) {
     std::printf("static const int %s_width = %d;\n", var_prefix, x);
     std::printf("static const int %s_height = %d;\n\n", var_prefix, y);
 
-    std::printf("static const char %s_img[] = {\n    ", var_prefix);
+    std::printf("static const unsigned char %s_img[] = {\n    ", var_prefix);
     for (size_t i = 0; i < x * y * 3; i++) {
         std::printf("0x%02x,", img[i]);
     }
 
-    std::printf("\n}\n");
+    std::printf("\n};\n");
     return 0;
 }
